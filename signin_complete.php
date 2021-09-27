@@ -10,6 +10,7 @@ $stmt->bindValue(':email', $email);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+session_start(); 
 //指定したハッシュがパスワードにマッチしているかチェック
 if (password_verify($password, $user['password'])) {
   //DBのユーザー情報をセッションに保存

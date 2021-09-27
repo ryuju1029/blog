@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('initPdo.php');
 $name = filter_input(INPUT_POST, "name");
 $email = filter_input(INPUT_POST, "email");

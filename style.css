@@ -18,3 +18,7 @@
 .header_item {
   margin-left: 20px;
 }
+
+.cardBlogContent{
+  display: flex;
+}

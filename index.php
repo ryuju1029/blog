@@ -32,7 +32,7 @@ $blogs = $blogDao->findAll($contents, $order);
   </form>
 
   <?php foreach ($blogs as $blog) : ?>
-    <table align="left" class="cardBlogContent">
+    <table align="left" class="cardBlogContent" border=1 frame="box" rules="none">
       <tr>
         <td><?php echo $blog['title']; ?></td>
       </tr>
@@ -49,3 +49,4 @@ $blogs = $blogDao->findAll($contents, $order);
     </table>
   <?php endforeach; ?>
 </body>
+

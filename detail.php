@@ -15,13 +15,6 @@ $stmt->bindValue(':blog_id', $id);
 $stmt->execute();
 $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// $sql = "SELECT * FROM blogs WHERE id = :id";
-// $pdo = initPdo();
-// $stmt = $pdo->prepare($sql);
-// $stmt->bindValue(':id', $id);
-// $stmt->execute();
-// $blog = $stmt->fetch(PDO::FETCH_ASSOC);
-
 ?>
 
 <h1 style="text-align:center"><?php echo $blog['title']; ?></h1>

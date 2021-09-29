@@ -51,7 +51,7 @@ $blogs = $pdo->query($sql);
         <td><?php echo substr($blog['contents'], 0, 15); ?></td>
       </tr>
       <tr>
-        <td></td>
+        <td><a href="detail.php?id=<?php echo $blog['id']; ?>">記事詳細</a></td>
       </tr>
 
     </table>

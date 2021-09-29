@@ -4,11 +4,19 @@ if (isset($_SESSION['id'])) $userName = $_SESSION['name'];
 $url = $_SERVER['REQUEST_URI'];
 ?>
 
-<link rel="stylesheet" href="style.css">
+<style>
+  .header_content {
+    background-color: #CCFFFF;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+</style>
+
 <header>
   <div class="header_content">
     <div class="header_item">
-      <a class="greeting_messege">こんにちは<?php if (isset($userName)) echo $userName; else echo "ゲスト"; ?>さん</a>
+      <a class="greeting_messege">こんにちは<?php if (isset($userName)) echo $userName;
+                                        else echo "ゲスト"; ?>さん</a>
     </div>
     <?php if (isset($_SESSION['id'])) : ?>
       <div class="header_item right_content">

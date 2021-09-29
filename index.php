@@ -1,20 +1,12 @@
 <?php
 require_once('initPdo.php');
 require_once('header.php');
+require_once(__DIR__ . '/Dao/BlogDao.php');
 
 $order = filter_input(INPUT_GET, "order") ?? 'desc';
 $contents = filter_input(INPUT_GET, "contents");
-
-$sql = 'SELECT * FROM blogs';
-
-if (!is_null($contents)) {
-  $sql .= " WHERE contents LIKE '%$contents%'";
-}
-
-$sql .= ' ORDER BY created_at ' . $order;
-
-$pdo = initPdo();
-$blogs = $pdo->query($sql);
+$blogDao = new BlogDao();
+$blogs = $blogDao->findAll($contents, $order);
 ?>
 
 <link rel="stylesheet" href="style.css">
@@ -48,7 +40,7 @@ $blogs = $pdo->query($sql);
         <td><?php echo $blog['created_at']; ?></td>
       </tr>
       <tr>
-        <td><?php echo substr($blog['contents'], 0, 15); ?></td>
+        <td><?php echo mb_substr($blog['contents'], 0, 5); ?></td>
       </tr>
       <tr>
         <td><a href="detail.php?id=<?php echo $blog['id']; ?>">記事詳細</a></td>

@@ -1,11 +1,8 @@
 <?php
-require_once('initPdo.php');
+require_once(__DIR__ . '/Dao/BlogDao.php');
 $contents = filter_input(INPUT_POST, "content");
 $title = filter_input(INPUT_POST, "title");
 $id = filter_input(INPUT_POST, "id");
-$sql = "UPDATE blogs SET title = :title, contents = :contents WHERE id = :id";
-$pdo = initPdo();
-$stmt = $pdo->prepare($sql);
-$params = array(':title' => $title,':contents' => $contents,':id' => $id,);
-$stmt->execute($params);
+$blogDao = new BlogDao();
+$blogDao->update($title, $contents, $id);
 header('Location: mypage.php');

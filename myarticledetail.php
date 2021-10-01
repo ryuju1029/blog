@@ -1,12 +1,8 @@
 <?php
-require_once('initPdo.php');
+require_once(__DIR__ . '/Dao/BlogDao.php');
 $id = filter_input(INPUT_GET, "id");
-$sql = "SELECT * FROM blogs WHERE id = :id";
-$pdo = initPdo();
-$stmt = $pdo->prepare($sql);
-$stmt->bindValue(':id', $id);
-$stmt->execute();
-$blog = $stmt->fetch(PDO::FETCH_ASSOC);
+$blogDao = new BlogDao();
+$blog = $blogDao->findById($id);
 ?>
 
 <h1 style="text-align:center"><?php echo $blog['title']; ?></h1>

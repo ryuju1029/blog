@@ -1,10 +1,10 @@
 <?php
-require_once('initPdo.php');
 require_once('header.php');
+require_once(__DIR__ . '/Dao/BlogDao.php');
+
 $userId = $_SESSION['id'];
-$sql = "SELECT * FROM blogs WHERE user_id ='" . $userId . "'";
-$pdo = initPdo();
-$blogs = $pdo->query($sql);
+$blogDao = new BlogDao();
+$blogs = $blogDao->findByUserId($userId);
 ?>
 
 <body>
@@ -20,7 +20,7 @@ $blogs = $pdo->query($sql);
         <td><?php echo $blog['created_at']; ?></td>
       </tr>
       <tr>
-        <td><?php echo substr($blog['contents'], 0, 15); ?></td>
+        <td><?php echo mb_substr($blog['contents'], 0, 15); ?></td>
       </tr>
       <tr>
         <td>

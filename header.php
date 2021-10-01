@@ -9,6 +9,28 @@ $url = $_SERVER['REQUEST_URI'];
     background-color: #CCFFFF;
     padding-top: 10px;
     padding-bottom: 10px;
+    display: flex;
+  }
+
+  .header_content> :first-child {
+    margin-right: auto;
+  }
+
+  .greeting_messege {
+    font-weight: bold;
+    font-size: 30px;
+  }
+
+  .right_content {
+    margin-top: 10px;
+  }
+
+  .header_item {
+    margin-left: 20px;
+  }
+
+  .cardBlogContent {
+    display: flex;
   }
 </style>
 

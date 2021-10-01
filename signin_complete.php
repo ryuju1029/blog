@@ -1,14 +1,10 @@
 <?php
-require_once('initPdo.php');
+require_once(__DIR__ . '/Dao/UserDao.php');
 $email = filter_input(INPUT_POST, "email");
 $password = filter_input(INPUT_POST, "password");
 
-$sql = "SELECT * FROM users WHERE email = :email";
-$pdo = initPdo();
-$stmt = $pdo->prepare($sql);
-$stmt->bindValue(':email', $email);
-$stmt->execute();
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$userDao = new UserDao();
+$user = $userDao->emailsignin($email);
 
 session_start(); 
 //指定したハッシュがパスワードにマッチしているかチェック
@@ -20,7 +16,7 @@ if (password_verify($password, $user['password'])) {
   $link = '<a href="index.php">ホーム</a>';
 } else {
   $msg = 'メールアドレスもしくはパスワードが間違っています。';
-  $link = '<a href="singin.php">戻る</a>';
+  $link = '<a href="signin.php">戻る</a>';
 }
 ?>
 

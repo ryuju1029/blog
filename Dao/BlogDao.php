@@ -56,8 +56,9 @@ final class BlogDao
 
     public function findByUserId(int $userId): ?array
     {
-        $sql = "SELECT * FROM blogs WHERE user_id ='" . $userId . "'";
+        $sql = "SELECT * FROM blogs WHERE user_id = :userId";
         $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':userId', $userId);
         $stmt->execute();
         $blog = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return ($blog === false) ? null : $blog;

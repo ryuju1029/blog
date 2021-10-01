@@ -11,8 +11,6 @@ final class BlogDao
         $dsn = 'mysql:dbname=blog;host=localhost;charset=utf8';
         $user = 'root';
         $password = 'root';
-
-        // MSQLのデータベース接続
         $this->pdo = new PDO($dsn, $user, $password);
     }
 
@@ -32,13 +30,18 @@ final class BlogDao
         }
         $stmt->execute();
         $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
         // TODO: 三項演算子にする
-        if ($blogs === false) {
-            return [];
-        }
+        return ($blogs === false) ? [] : $blogs;
+    }
 
-        return $blogs;
+    public function create(?string $contents,string $title,int $userId)
+    {
+        $sql = "INSERT INTO blogs (title, contents, user_id) VALUES (:title, :contents, :user_id)";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':title', $title);
+        $stmt->bindValue(':contents', $contents);
+        $stmt->bindValue(':user_id', $userId);
+        $stmt->execute();
     }
 
     public function findById(int $id): ?array
@@ -48,12 +51,31 @@ final class BlogDao
         $stmt->bindValue(':id', $id);
         $stmt->execute();
         $blog = $stmt->fetch(PDO::FETCH_ASSOC);
-
         return ($blog === false) ? null : $blog;
     }
 
-    public function update(array $blog)
+    public function findByUserId(int $userId): ?array
     {
+        $sql = "SELECT * FROM blogs WHERE user_id ='" . $userId . "'";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $blog = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return ($blog === false) ? null : $blog;
+    } 
 
+    public function update(?string $contents, string $title, int $id)
+    {
+        $sql = "UPDATE blogs SET title = :title, contents = :contents WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $params = array(':title' => $title, ':contents' => $contents, ':id' => $id,);
+        $stmt->execute($params);
+    }
+
+    public function delete(int $id)
+    {
+        $sql = "DELETE FROM blogs WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
     }
 }

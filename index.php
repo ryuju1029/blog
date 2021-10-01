@@ -1,8 +1,6 @@
 <?php
-require_once('initPdo.php');
 require_once('header.php');
 require_once(__DIR__ . '/Dao/BlogDao.php');
-
 $order = filter_input(INPUT_GET, "order") ?? 'desc';
 $contents = filter_input(INPUT_GET, "contents");
 $blogDao = new BlogDao();

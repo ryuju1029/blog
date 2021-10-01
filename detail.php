@@ -1,20 +1,12 @@
 <?php
 session_start();
-require_once('initPdo.php');
 require_once(__DIR__ . '/Dao/BlogDao.php');
-
-//$id＝ブログのID
+require_once(__DIR__ . '/Dao/CommentsDao.php');
 $id = filter_input(INPUT_GET, "id");
 $blogDao = new BlogDao();
 $blog = $blogDao->findById($id);
-
-$sql = "SELECT * FROM comments WHERE blog_id = :blog_id";
-$pdo = initPdo();
-$stmt = $pdo->prepare($sql);
-$stmt->bindValue(':blog_id', $id);
-$stmt->execute();
-$comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+$commentDao = new CommentDao();
+$comments = $commentDao->findAll($id);
 ?>
 
 <h1 style="text-align:center"><?php echo $blog['title']; ?></h1>

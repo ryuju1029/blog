@@ -1,17 +1,11 @@
-<?php 
+<?php
+require_once(__DIR__ . '/Abstract.php');
 
-
-final class CommentDao
+final class CommentDao extends DbConnection
 {
-  private $pdo;
-
   public function __construct()
   {
-    // TODO: 抽象クラス「Dao.php」を継承して、そっちでPDO接続する
-    $dsn = 'mysql:dbname=blog;host=localhost;charset=utf8';
-    $user = 'root';
-    $password = 'root';
-    $this->pdo = new PDO($dsn, $user, $password);
+    $this->Connection();
   }
  
   public function create(string $comments, string $commenter_name, int $blog_id, int $user_id)

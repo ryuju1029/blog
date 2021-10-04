@@ -1,14 +1,8 @@
 <?php
 require_once(__DIR__ . '/Abstract.php');
 
-final class UserDao extends DbConnection
+final class UserDao extends Dbo
 {
-
-  public function __construct()
-  {
-    $this->Connection();
-  }
-
   public function emailsignin(string $email)
   {
     $sql = "SELECT * FROM users WHERE email = :email";

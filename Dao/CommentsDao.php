@@ -1,13 +1,9 @@
 <?php
 require_once(__DIR__ . '/Abstract.php');
 
-final class CommentDao extends DbConnection
+final class CommentDao extends Dbo
 {
-  public function __construct()
-  {
-    $this->Connection();
-  }
- 
+  
   public function create(string $comments, string $commenter_name, int $blog_id, int $user_id)
   {
     $sql = "INSERT INTO comments (commenter_name, comments, blog_id, user_id) VALUES (:commenter_name, :comments, :blog_id, :user_id)";

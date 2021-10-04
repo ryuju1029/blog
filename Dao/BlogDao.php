@@ -1,14 +1,9 @@
 <?php
 require_once(__DIR__ . '/Abstract.php');
 
-final class BlogDao extends DbConnection
+final class BlogDao extends Dbo
 {
      
-     public function __construct()
-     {
-        $this->Connection();        
-     }
-
     public function findAll(?string $contents, string $order): array
     {
         $sql = 'SELECT * FROM blogs';

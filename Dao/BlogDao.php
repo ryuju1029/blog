@@ -1,22 +1,11 @@
 <?php
+require_once(__DIR__ . '/Abstract.php');
 
-
-final class BlogDao
+final class BlogDao extends Dbo
 {
-    private $pdo;
-
-    public function __construct()
-    {
-        // TODO: 抽象クラス「Dao.php」を継承して、そっちでPDO接続する
-        $dsn = 'mysql:dbname=blog;host=localhost;charset=utf8';
-        $user = 'root';
-        $password = 'root';
-        $this->pdo = new PDO($dsn, $user, $password);
-    }
-
+     
     public function findAll(?string $contents, string $order): array
     {
-
         $sql = 'SELECT * FROM blogs';
         if (!is_null($contents)) {
             $sql .= " WHERE contents LIKE :contents";

@@ -1,19 +1,8 @@
 <?php
+require_once(__DIR__ . '/Abstract.php');
 
-
-final class UserDao
+final class UserDao extends Dbo
 {
-  private $pdo;
-
-  public function __construct()
-  {
-    // TODO: 抽象クラス「Dao.php」を継承して、そっちでPDO接続する
-    $dsn = 'mysql:dbname=blog;host=localhost;charset=utf8';
-    $user = 'root';
-    $password = 'root';
-    $this->pdo = new PDO($dsn, $user, $password);
-  }
-
   public function emailsignin(string $email)
   {
     $sql = "SELECT * FROM users WHERE email = :email";

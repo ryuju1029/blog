@@ -1,7 +1,7 @@
 <?php
-require_once(__DIR__ . '/Abstract.php');
+require_once(__DIR__ . '/Dao.php');
 
-final class UserDao extends Dbo
+final class UserDao extends Dao
 {
   public function emailsignin(string $email)
   {

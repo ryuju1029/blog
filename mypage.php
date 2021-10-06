@@ -14,17 +14,17 @@ $blogs = $blogDao->findByUserId($userId);
   <?php foreach ($blogs as $blog) : ?>
     <table align="left" class="cardBlogContent">
       <tr>
-        <td><?php echo $blog['title']; ?></td>
+        <td><?php echo $blog->title(); ?></td>
       </tr>
       <tr>
-        <td><?php echo $blog['created_at']; ?></td>
+        <td><?php echo $blog->createdAt(); ?></td>
       </tr>
       <tr>
-        <td><?php echo mb_substr($blog['contents'], 0, 15); ?></td>
+        <td><?php echo mb_substr($blog->contents(), 0, 15); ?></td>
       </tr>
       <tr>
         <td>
-            <a href="myarticledetail.php?id=<?php echo $blog['id']; ?>">記事詳細</a>
+            <a href="myarticledetail.php?id=<?php echo $blog->id(); ?>">記事詳細</a>
         </td>
       </tr>
     </table>

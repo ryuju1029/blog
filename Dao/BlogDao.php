@@ -1,7 +1,7 @@
 <?php
-require_once(__DIR__ . '/Abstract.php');
+require_once(__DIR__ . '/Dao.php');
 
-final class BlogDao extends Dbo
+final class BlogDao extends Dao
 {
      
     public function findAll(?string $contents, string $order): array

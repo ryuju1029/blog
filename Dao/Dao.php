@@ -1,6 +1,6 @@
 <?php
 
-abstract class Dbo 
+abstract class Dao 
 {
   protected $pdo;
 

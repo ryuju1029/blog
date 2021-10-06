@@ -1,7 +1,7 @@
 <?php
-require_once(__DIR__ . '/Abstract.php');
+require_once(__DIR__ . '/Dao.php');
 
-final class CommentDao extends Dbo
+final class CommentDao extends Dao
 {
   
   public function create(string $comments, string $commenter_name, int $blog_id, int $user_id)

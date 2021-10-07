@@ -16,7 +16,7 @@ final class CommentDao extends Dao
     $stmt->execute();
   }
 
-  public function findAll(int $id)
+  public function findAll(int $id): array
   {
     $sql = "SELECT * FROM comments WHERE blog_id = :blog_id";
     $stmt = $this->pdo->prepare($sql);

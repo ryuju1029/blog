@@ -1,9 +1,10 @@
 <?php
 require_once(__DIR__ . '/Dao.php');
+require_once(__DIR__ . '/../Dto/UserRaw.php');
 
 final class UserDao extends Dao
 {
-  public function emailsignin(string $email)
+  public function emailsignin(string $email): ?UserRaw
   {
     $sql = "SELECT * FROM users WHERE email = :email";
     $stmt = $this->pdo->prepare($sql);
@@ -11,8 +12,18 @@ final class UserDao extends Dao
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    return ($user === false) ? null : $user;
+    if($user === false)return null;
+
+    return new UserRaw(
+      $user['id'],
+      $user['name'],
+      $user['email'],
+      $user['password'],
+      $user['created_at'],
+      $user['updated_at']
+    );
   }
+
 
   public function findByEmail(string $email)
   {

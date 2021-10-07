@@ -1,5 +1,6 @@
 <?php
 require_once(__DIR__ . '/Dao.php');
+require_once(__DIR__ . '/../Dto/BlogRaw.php');
 
 final class BlogDao extends Dao
 {
@@ -19,8 +20,21 @@ final class BlogDao extends Dao
         }
         $stmt->execute();
         $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        // TODO: 三項演算子にする
-        return ($blogs === false) ? [] : $blogs;
+        
+        if ($blogs === false) return [];
+
+        $blogRaws = [];
+        foreach ($blogs as $blog) {
+            $blogRaws[] = new BlogRaw(
+                $blog['id'],
+                $blog['user_id'],
+                $blog['title'],
+                $blog['contents'],
+                $blog['created_at'],
+                $blog['updated_at']
+            );
+        }
+        return $blogRaws;
     }
 
     public function create(?string $contents,string $title,int $userId)
@@ -31,26 +45,51 @@ final class BlogDao extends Dao
         $stmt->bindValue(':contents', $contents);
         $stmt->bindValue(':user_id', $userId);
         $stmt->execute();
+        
     }
 
-    public function findById(int $id): ?array
+    public function findById(int $id): ?BlogRaw
     {
         $sql = "SELECT * FROM blogs WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
         $blog = $stmt->fetch(PDO::FETCH_ASSOC);
-        return ($blog === false) ? null : $blog;
+
+        if ($blog === false) return null;
+
+        return new BlogRaw(
+            $blog['id'],
+            $blog['user_id'],
+            $blog['title'],
+            $blog['contents'],
+            $blog['created_at'],
+            $blog['updated_at']
+        );
     }
 
-    public function findByUserId(int $userId): ?array
+    public function findByUserId(string $userId): ?array
     {
         $sql = "SELECT * FROM blogs WHERE user_id = :userId";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':userId', $userId);
         $stmt->execute();
-        $blog = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return ($blog === false) ? null : $blog;
+        $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //return ($blog === false) ? null : $blog;
+
+         if($blogs === false) return null;
+
+         foreach ($blogs as $blog){
+            $BlogRaws[] =  new BlogRaw(
+                $blog['id'],
+                $blog['user_id'],
+                $blog['title'],
+                $blog['contents'],
+                $blog['created_at'],
+                $blog['updated_at']
+            );
+         }
+         return $BlogRaws;
     } 
 
     public function update(?string $contents, string $title, int $id)

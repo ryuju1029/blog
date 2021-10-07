@@ -1,6 +1,7 @@
 <?php
 require_once('header.php');
 require_once(__DIR__ . '/Dao/BlogDao.php');
+
 $order = filter_input(INPUT_GET, "order") ?? 'desc';
 $contents = filter_input(INPUT_GET, "contents");
 $blogDao = new BlogDao();
@@ -32,16 +33,16 @@ $blogs = $blogDao->findAll($contents, $order);
   <?php foreach ($blogs as $blog) : ?>
     <table align="left" class="cardBlogContent" border=1 frame="box" rules="none">
       <tr>
-        <td><?php echo $blog['title']; ?></td>
+        <td><?php echo $blog->title(); ?></td>
       </tr>
       <tr>
-        <td><?php echo $blog['created_at']; ?></td>
+        <td><?php echo $blog->createdAt(); ?></td>
       </tr>
       <tr>
-        <td><?php echo mb_substr($blog['contents'], 0, 5); ?></td>
+        <td><?php echo mb_substr($blog->contents(), 0, 5); ?></td>
       </tr>
       <tr>
-        <td><a href="detail.php?id=<?php echo $blog['id']; ?>">記事詳細</a></td>
+        <td><a href="detail.php?id=<?php echo $blog->id(); ?>">記事詳細</a></td>
       </tr>
 
     </table>

@@ -24,8 +24,6 @@ final class CommentDao extends Dao
     $stmt->execute();
     $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    //return ($comments === false) ? [] : $comments;
-
     if ($comments === false) return [];
 
     $commentsRaws = [];

@@ -12,7 +12,7 @@ final class UserDao extends Dao
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if($user === false)return null;
+    if ($user === false) return null;
 
     return new UserRaw(
       $user['id'],

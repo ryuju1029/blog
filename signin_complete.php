@@ -8,10 +8,10 @@ $user = $userDao->emailsignin($email);
 
 session_start(); 
 //指定したハッシュがパスワードにマッチしているかチェック
-if (password_verify($password, $user['password'])) {
+if (password_verify($password, $user->password())) {
   //DBのユーザー情報をセッションに保存
-  $_SESSION['id'] = $user['id'];
-  $_SESSION['name'] = $user['name'];
+  $_SESSION['id'] = $user->id();
+  $_SESSION['name'] = $user->name();
   $msg = 'ログインしました。';
   $link = '<a href="index.php">ホーム</a>';
 } else {

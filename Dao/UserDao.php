@@ -13,6 +13,7 @@ final class UserDao extends Dao
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user === false) return null;
+    // 一番最新
 
     return new UserRaw(
       $user['id'],
@@ -23,7 +24,6 @@ final class UserDao extends Dao
       $user['updated_at']
     );
   }
-
 
   public function findByEmail(string $email)
   {
